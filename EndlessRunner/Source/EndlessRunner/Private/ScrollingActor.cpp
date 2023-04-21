@@ -5,7 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "LevelFragment.h"
-#include "FragmentCleaner.h"
+
 // Sets default values
 AScrollingActor::AScrollingActor()
 {
@@ -34,10 +34,6 @@ void AScrollingActor::BeginPlay()
 		Fragment->SetSpeed(FragmentSpeed);
 		Fragment->SetMoveBackLength(FragmentJump);
 	}
-	FTransform SpawnTransform = GetActorTransform();
-	SpawnTransform.SetLocation(SpawnTransform.GetLocation() - FVector(FragmentLength * 2, 0.0f, 0.0f));
-	AFragmentCleaner* FragmentCleaner = GetWorld()->SpawnActor<AFragmentCleaner>(FragmentCleanerClass, SpawnTransform);
-
 }
 
 // Called every frame
@@ -46,4 +42,3 @@ void AScrollingActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-

@@ -23,4 +23,35 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void SpawnRockets();
+
+private:
+	UPROPERTY(EditAnywhere)
+	float SpawnInterval;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnDelay;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnAmount;
+
+	UPROPERTY(EditAnywhere)
+	float SpeedFactor;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class ARocket> RocketClass;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnMinZ;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnMaxZ;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnX;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnY;
+
+	float SpawnTimer = 0;
 };

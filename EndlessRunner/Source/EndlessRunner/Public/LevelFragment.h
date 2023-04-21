@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CleanableInterface.h"
 #include "LevelFragment.generated.h"
 
 UCLASS()
-class ENDLESSRUNNER_API ALevelFragment : public AActor
+class ENDLESSRUNNER_API ALevelFragment : public AActor, public ICleanableInterface
 {
 	GENERATED_BODY()
 
@@ -24,6 +25,8 @@ public:
 
 	void SetMoveBackLength( float value);
 
+	virtual void Clean() override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,7 +39,7 @@ private:
 	UStaticMeshComponent* Background;
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* Roof;
+	UStaticMeshComponent* Floor;
 
 	FVector Speed;
 

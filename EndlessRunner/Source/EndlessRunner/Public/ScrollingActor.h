@@ -40,6 +40,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float FragmentLength;
 
+	UPROPERTY(EditAnywhere)
+	float FragmentCleanerOffset;
+
 	float FragmentJump;
 
 	UPROPERTY(EditAnywhere)
@@ -49,8 +52,8 @@ private:
 	TArray<float> ZoneStart;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class ALevelFragment> FragmentClass;
+	TArray<TSubclassOf<class ALevelFragment>> FragmentClasses;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class AFragmentCleaner> FragmentCleanerClass;
+	TSubclassOf<class ALevelFragment> FragmentClass;
 };

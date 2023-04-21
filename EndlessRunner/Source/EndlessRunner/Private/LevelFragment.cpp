@@ -17,8 +17,8 @@ ALevelFragment::ALevelFragment() {
 	Background = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Background"));
 	Background->SetupAttachment(Root);
 
-	Roof = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Roof"));
-	Roof->SetupAttachment(Root);
+	Floor = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Floor"));
+	Floor->SetupAttachment(Root);
 }
 
 // Called when the game starts or when spawned
@@ -44,4 +44,8 @@ void ALevelFragment::SetSpeed(float value) {
 
 void ALevelFragment::SetMoveBackLength(float value) {
 	MoveBackLength = FVector(value, 0.0f, 0.0f);
+}
+
+void ALevelFragment::Clean() {
+	MoveBack();
 }
