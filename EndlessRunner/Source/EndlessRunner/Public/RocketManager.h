@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "RocketManager.generated.h"
 
+class AEndlessRunnerGameModeBase;
+
 UCLASS()
 class ENDLESSRUNNER_API ARocketManager : public AActor
 {
@@ -54,4 +56,12 @@ private:
 	float SpawnY;
 
 	float SpawnTimer = 0;
+
+	float CalculateSpawnInterval(float gameTime);
+
+	float CalculateSpawnDelay(float gameTime);
+
+	float CalculateSpeedFactor(float gameTime);
+
+	AEndlessRunnerGameModeBase* GameMode;
 };
