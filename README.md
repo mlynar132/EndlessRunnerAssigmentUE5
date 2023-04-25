@@ -31,4 +31,4 @@ Whole game is fully made with C++ classes.
   - It is a big trigger box that is out side of the game view. Takes care of objects that need to be taken care of when they get out of view checking for CleanAbleInterface and running Clean function. Usage of an Interface for this allows for quick and easy check for if the object should be cleaned additionaly alows for different implementation of Clean function deppending on an object.
 
 - CleanAbleInterface Class:
-  - Is a Interface Class that all objects that should be delt with by the Cleaner Class inherit from.
+  Is a Interface Class that all objects that should be delt with by the Cleaner Class inherit from.
