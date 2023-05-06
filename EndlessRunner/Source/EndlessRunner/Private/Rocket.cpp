@@ -8,15 +8,15 @@
 ARocket::ARocket() {
 	PrimaryActorTick.bCanEverTick = true;
 
-	USceneComponent* Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	RootComponent = Root;
-	Root->SetMobility(EComponentMobility::Movable);
+	USceneComponent* root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	RootComponent = root;
+	root->SetMobility(EComponentMobility::Movable);
 
 	IndicatorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Indicator Mesh"));
-	IndicatorMesh->SetupAttachment(Root);
+	IndicatorMesh->SetupAttachment(root);
 
 	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Capsule"));
-	TriggerCapsule->SetupAttachment(Root);
+	TriggerCapsule->SetupAttachment(root);
 
 	RocketMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rocket Mesh"));
 	RocketMesh->SetupAttachment(TriggerCapsule);

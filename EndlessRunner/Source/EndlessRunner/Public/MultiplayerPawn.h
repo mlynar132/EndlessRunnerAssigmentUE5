@@ -6,29 +6,28 @@
 #include "GameFramework/Pawn.h"
 #include "InputActionValue.h"
 #include "DamageableInterface.h"
-#include "MyPawn.generated.h"
+#include "MultiplayerPawn.generated.h"
 
 class UCapsuleComponent;
 class UStaticMeshComponent;
 class UInputMappingContext;
 class UInputAction;
-//class UActor;
 
 UCLASS()
-class ENDLESSRUNNER_API AMyPawn : public APawn, public IDamageableInterface
+class ENDLESSRUNNER_API AMultiplayerPawn : public APawn, public IDamageableInterface
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	AMyPawn();
+	AMultiplayerPawn();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	virtual void TakeDamage(int32 amount) override;
 
 	virtual void Death() override;
@@ -38,28 +37,55 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
-	UInputMappingContext* DefaultMappingContext;
+	UInputMappingContext* MultiPlayerMappingContext;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
-	UInputAction* JumpAction;
+	UInputAction* Player1JumpAction;
 
-	virtual void Jump(const FInputActionValue& Value);
-private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UInputAction* Player2JumpAction;
+
+	virtual void Player1Jump(const FInputActionValue& Value);
+
+	virtual void Player2Jump(const FInputActionValue& Value);
+
+private:	
+#pragma region Player1	
 	UPROPERTY(VisibleAnywhere)
-	UCapsuleComponent* Capsule;
+	UCapsuleComponent* Player1Capsule;
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* Mesh;
+	UStaticMeshComponent* Player1Mesh;
 
 	UPROPERTY(EditAnywhere)
-	float JumpHeight;
+	float Player1JumpHeight;
 
-	FVector JumpVector;
+	FVector Player1JumpVector;
 
 	UPROPERTY(EditAnywhere)
-	bool JumpBool;
+	bool Player1JumpBool;
 
-	APlayerController* PlayerController;
+#pragma endregion Player1	
+
+#pragma region Player2	
+
+	UPROPERTY(VisibleAnywhere)
+	UCapsuleComponent* Player2Capsule;
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* Player2Mesh;
+
+	UPROPERTY(EditAnywhere)
+	float Player2JumpHeight;
+
+	FVector Player2JumpVector;
+
+	UPROPERTY(EditAnywhere)
+	bool Player2JumpBool;
+
+#pragma endregion Player2
+
+#pragma region Shared
 
 	UPROPERTY(EditAnywhere)
 	int32 StartingHealth;
@@ -67,4 +93,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	int32 CurrentHealth;
 
+	APlayerController* PlayerController;
+
+#pragma endregion Shared
 };

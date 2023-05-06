@@ -23,9 +23,9 @@ public:
 
 	float GetGameTime();
 
-	bool GetIsGamePaused();
+	bool GetbGamePaused();
 
-	void SetIsGamePaused(bool state);
+	void SetbGamePaused(bool state);
 
 private:
 	float GameTime = 0;
