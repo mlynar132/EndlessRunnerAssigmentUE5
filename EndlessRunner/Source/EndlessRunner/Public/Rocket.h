@@ -27,12 +27,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Initialize(float Delay, float SpeedFactorArg);
+	void Initialize(float Delay, float SpeedFactorArg, class ARocketManager* rocketManager);
 
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	void Move(float DeltaTime);
+
+	void Disable();
 
 	void HideIndicator();
 
@@ -54,6 +56,9 @@ private:
 	float SpeedFactor;
 
 	float SpeedTotal;
+	
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "0", ClampMax = "100"))
+	int32 DisappearChance;
 
 	bool bMoving = false;
 
@@ -66,4 +71,5 @@ private:
 	UPROPERTY(EditAnywhere)
 	UCapsuleComponent* TriggerCapsule;
 
+	ARocketManager* RocketManager;
 };

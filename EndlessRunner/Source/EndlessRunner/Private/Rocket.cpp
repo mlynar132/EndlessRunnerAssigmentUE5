@@ -4,6 +4,7 @@
 #include "Rocket.h"
 #include "Components/CapsuleComponent.h"
 #include "DamageableInterface.h"
+#include "RocketManager.h"
 
 ARocket::ARocket() {
 	PrimaryActorTick.bCanEverTick = true;
@@ -32,10 +33,12 @@ void ARocket::BeginPlay() {
 
 }
 
-void ARocket::Initialize(float Delay, float SpeedFactorArg) {
-
+void ARocket::Initialize(float Delay, float SpeedFactorArg, ARocketManager* rocketManager) {
+	
 	SpawnDelay = Delay;
 	SpeedFactor = SpeedFactorArg;
+	RocketManager = rocketManager;
+	RocketManager->AddRocketToSet(this);
 }
 
 void ARocket::Tick(float DeltaTime) {
@@ -59,15 +62,12 @@ void ARocket::Tick(float DeltaTime) {
 
 void ARocket::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	FString name = GetName();
-	FString name2 = OtherActor->GetName();
-	//UE_LOG(LogTemp, Warning, TEXT("BOOOOM I %s KILLED the %s"), *name, *name2);
 	if (IDamageableInterface* damageableInterface = Cast<IDamageableInterface>(OtherActor))
 	{
 		damageableInterface->TakeDamage(Damage);
 		//explode
 		//clean up
-		Clean();
+		RocketManager->RemoveRocketFromSet(this);
 	}
 	// do expolsion
 }
@@ -82,7 +82,16 @@ void ARocket::HideIndicator() {
 
 //ICleanableInterface::Clean() doesn't have access to Destroy();
 void ARocket::Clean() {
-	//UE_LOG(LogTemp, Warning, TEXT("Clean"));
-	Destroy();
+	RocketManager->RemoveRocketFromSet(this);
+	if(rand() % 100 < DisappearChance) {
+		if(ARocket* randomRocket = RocketManager->GetRandomRocketFromSet()) {
+			RocketManager->RemoveRocketFromSet(randomRocket);
+		}
+
+	}
 	//temporary solution destroy improve to object pooling
+}
+
+void ARocket::Disable() {
+	Destroy();
 }

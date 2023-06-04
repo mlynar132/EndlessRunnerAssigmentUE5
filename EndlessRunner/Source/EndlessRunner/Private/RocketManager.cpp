@@ -30,7 +30,6 @@ void ARocketManager::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 	SpawnTimer += DeltaTime;
 	if (SpawnTimer >= CalculateSpawnInterval(GameMode->GetGameTime())) {
-		UE_LOG(LogTemp, Warning, TEXT("spawn time %f"), GameMode->GetGameTime());
 		SpawnRockets();
 		SpawnTimer = 0;
 	}
@@ -41,7 +40,7 @@ void ARocketManager::SpawnRockets() {
 	FVector SpawnVector = FVector(SpawnX, SpawnY, SpawnZ);
 	FTransform SpawnTransform = FTransform(SpawnVector);
 	ARocket* Rocket = GetWorld()->SpawnActor<ARocket>(RocketClass, SpawnTransform);
-	Rocket->Initialize(SpawnDelay, CalculateSpeedFactor(GameMode->GetGameTime()));
+	Rocket->Initialize(SpawnDelay, CalculateSpeedFactor(GameMode->GetGameTime()), this);
 }
 
 float ARocketManager::CalculateSpawnInterval(float gameTime) {
@@ -54,4 +53,31 @@ float ARocketManager::CalculateSpawnDelay(float gameTime) {
 
 float ARocketManager::CalculateSpeedFactor(float gameTime) {
 	return 2 * FGenericPlatformMath::LogX(3, gameTime + 15);
+}
+
+void ARocketManager::AddRocketToSet(ARocket* rocket) {
+	Rockets.Add(rocket);
+}
+
+void ARocketManager::RemoveRocketFromSet(ARocket* rocket) {
+	Rockets.Remove(rocket);
+	rocket->Disable();
+}
+
+ARocket* ARocketManager::GetRandomRocketFromSet() {
+	int32 length = Rockets.Num();
+	
+	if(length==0)
+		return nullptr;
+
+	int32 i = 0;
+	int32 x = rand() % length;
+	for(auto& Elem : Rockets) {
+		if(x == i) {
+			return Elem;
+		}
+		i++;
+	}
+
+	return nullptr;
 }

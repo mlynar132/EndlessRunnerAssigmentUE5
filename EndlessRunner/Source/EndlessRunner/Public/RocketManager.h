@@ -27,6 +27,12 @@ public:
 
 	void SpawnRockets();
 
+	void AddRocketToSet(class ARocket* rocket);
+
+	void RemoveRocketFromSet(class ARocket* rocket);
+
+	class ARocket* GetRandomRocketFromSet();
+
 private:
 	UPROPERTY(EditAnywhere)
 	float SpawnInterval;
@@ -64,4 +70,8 @@ private:
 	float CalculateSpeedFactor(float gameTime);
 
 	AEndlessRunnerGameModeBase* GameMode;
+
+	TSet<ARocket*> Rockets;
+
+
 };
