@@ -35,23 +35,18 @@ AMultiplayerPawn::AMultiplayerPawn()
 void AMultiplayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
+
 	PlayerController = Cast<APlayerController>(GetController());
-
-	FString name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("pre %s"), *name);
-
 	if(!PlayerController)
 		return;
-	UE_LOG(LogTemp, Warning, TEXT("mid %s"), *name);
 	if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem< UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
-		Subsystem->AddMappingContext(MultiPlayerMappingContext, 0);	UE_LOG(LogTemp, Warning, TEXT("done %s"), *name);
+		Subsystem->AddMappingContext(MultiPlayerMappingContext, 0);	
 	}
 
 	Player1JumpVector = FVector(0.0f, 0.0f, Player1JumpHeight);
 	Player2JumpVector = FVector(0.0f, 0.0f, Player2JumpHeight);
 
 	CurrentHealth = StartingHealth;
-	UE_LOG(LogTemp, Warning, TEXT("post %s"), *name);
 }
 
 // Called every frame
@@ -70,16 +65,12 @@ void AMultiplayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 }
 
 void AMultiplayerPawn::Player1Jump(const FInputActionValue& Value) {
-	FString name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("jump1 %s"), *name);
 	if(GetController()) {
 		Player1Capsule->AddForce(Player1JumpVector);
 	}
 }
 
 void AMultiplayerPawn::Player2Jump(const FInputActionValue& Value) {
-	FString name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("jump2 %s"), *name);
 	if(GetController()) {
 		Player2Capsule->AddForce(Player2JumpVector);
 	}
