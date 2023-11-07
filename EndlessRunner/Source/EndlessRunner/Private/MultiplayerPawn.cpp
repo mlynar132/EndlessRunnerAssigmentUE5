@@ -2,11 +2,14 @@
 
 
 #include "MultiplayerPawn.h"
+
+#include "EndlessRunnerGameModeBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AMultiplayerPawn::AMultiplayerPawn()
@@ -87,5 +90,8 @@ void AMultiplayerPawn::TakeDamage(int32 amount) {
 
 void AMultiplayerPawn::Death() {
 	UE_LOG(LogTemp, Warning, TEXT("PLAYERS DIED"));
+	AEndlessRunnerGameModeBase* GameMode = Cast<AEndlessRunnerGameModeBase>( UGameplayStatics::GetGameMode(GetWorld()));
+	GameMode->SaveScore();
+	//FGenericPlatformMisc::RequestExit(false);
 	Destroy();
 }

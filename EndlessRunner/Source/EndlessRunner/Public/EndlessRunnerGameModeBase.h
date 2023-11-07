@@ -19,13 +19,17 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	//virtual ~AEndlessRunnerGameModeBase() = default;
 
-	virtual void StartPlay();
+	virtual void StartPlay() override;
 
+	void SaveScore();
+	
 	float GetGameTime();
 
 	bool GetbGamePaused();
 
 	void SetbGamePaused(bool state);
+
+	void DisplayHighScores();
 
 private:
 	float GameTime = 0;
@@ -33,4 +37,9 @@ private:
 	bool bGamePaused = 0;
 
 	float GameScore = 0;
+
+	TArray<float> HighScores;
+
+	int8 NumberOfHighScoresToDisplay;
+	
 };
