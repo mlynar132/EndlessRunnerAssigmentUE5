@@ -1,7 +1,7 @@
 # EndlessRunnerAssigmentUE5
 
 How to play:
-Press spacebar to go up.
+P1 press W to go up P2 press up arrow to go up.
 Avoid Rockects which are indicated by red dots.
 
 Whole game is fully made with C++ classes.
@@ -13,7 +13,7 @@ Whole game is fully made with C++ classes.
   Interface for anything that might get killed by obstacles (for now only player).
 
 - EndlessRunnerGameModeBase Class:
-  Since it is a GameMode class it can be accessed from any object in the level acting as singleton. Takes care of keeping track of the time, score and whether the game is paused aditionally does values can be Get/Set.
+  Since it is a GameMode class it can be accessed from any object in the level acting as singleton. Takes care of keeping track of the time, score and whether the game is paused aditionally does values can be Get/Set. And Load in and Saves Scores
 
 - Level Classes:
   - ScrollingActor Class (should be renamed):
